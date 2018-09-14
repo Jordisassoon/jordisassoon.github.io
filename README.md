@@ -5,6 +5,9 @@
   .city{
   border: 2px solid black;
   }
+  .char{
+  font-family: courier;
+  }
  </style>
  </head>
 <body>
