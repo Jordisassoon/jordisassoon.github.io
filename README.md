@@ -6,7 +6,7 @@
   border: 2px solid black;
   }
   .char{
-  font-family: courier;
+  font-family: verdana;
   }
  </style>
  </head>
