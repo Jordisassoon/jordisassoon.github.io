@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+canvas {
+	border: 1px solid #000000
+	}
+
+	table, th, td, tr {
+	border: 1px solid black;
+ 	border-collapse: collapse;
+	text-align : left;
+	padding: 7px;
+	width: 25%;
+	font-family: sans-serif;
+	text-align: left;
+	}
+
+	table#myTable {
+	width: 100%;
+	right: 0;
+	position: absolute;
+	top: 100px;
+	}
+	table#myTable tr:nth-child(even) {
+   	   background-color: #eee;
+	   display: table-row;
+	}
+	table#myTable tr:nth-child(odd) {
+	   background-color: #fff;
+	   display: table-row;
+	}
+	table#myTable th {
+	    background-color: black;
+	    color: white;
+	}
+	.container {
+	position: relative;
+	}
+
+	.topright {
+	position: absolute;
+	top: 30px;
+	right: 0px;
+	width: 170px;
+	font-size: 18px;
+	font-family: arial;
+	}
+
+	.topleft {
+	position: absolute;
+	top: 30px;
+	left: 10px;
+	width: 100px;
+	height: 24px;
+	font-family: arial;
+	}
+	
+	.topleft1 {
+	position: absolute;
+	top: 14px;
+	font-size: 22px;
+	left: 130px;
+	font-family: arial;
+	}
+	
+	.topright2{
+	position: absolute;
+	top: 30px;
+	right: 180px;
+	width: 60px;
+	height: 24px;
+	font-family: arial;
+	}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+ <select name="sezioni" class="topright" id="mySel" onchange="myFunction()">
+	<option>--
+	<option value="4SC">4° SC
+	<option value="AM">Asilo Mariuccia
+	<option value="Uni">Università
+ </select>
+ <button id="Int" type="button" class="topleft" onClick="myFunctionInt()">Interroga!</button>
+ <h1 id="4head" class="topleft1"></h1>
+ <input class="topright2" type="button" id="btnDelete" value="Boccia!" onclick="removeSampleRow('tblSample')">
+</div>
+
+<table id="myTable">
+  <tr>
+    <th style="width:25%">Numero</th>
+    <th style="width:25%">Nome</th>
+    <th style="width:25%">Cognome</th>
+    <th style="width:25%">Chi bocciamo?</th>
+  </tr>
+</table>
+
+
+<p id="myP1" style="display:none">
+[{ "numero":1, "nome":"Sara", "cognome":"Abou Hamra" },
+{ "numero":2, "nome":"Daniel", "cognome":"Bueno" },
+{ "numero":3, "nome":"Beniamino", "cognome":"Foà" },
+{ "numero":4, "nome":"Alberto", "cognome":"Hallach" },
+{ "numero":5, "nome":"Davide", "cognome":"Hassan" },
+{ "numero":6, "nome":"Laura", "cognome":"Katri" },
+{ "numero":7, "nome":"Limor", "cognome":"Kohanim" },
+{ "numero":8, "nome":"Andrè", "cognome":"Liuim" },
+{ "numero":9, "nome":"Raphael", "cognome":"Loloey" },
+{ "numero":10, "nome":"Jonathan", "cognome":"Rimini" },
+{ "numero":11, "nome":"Jordan", "cognome":"Sassoon" },
+{ "numero":12, "nome":"Tommaso", "cognome":"Sazbon" },
+{ "numero":13, "nome":"Dalia", "cognome":"Somekh" },
+{ "numero":14, "nome":"Joshua", "cognome":"Turiel" },
+{ "numero":15, "nome":"Yoel", "cognome":"Zelnick" }]
+</p>
+<p id="myP2" style="display:none">
+[{ "numero":1, "nome":"Marco", "cognome":"Marchetti" },
+{ "numero":2, "nome":"Mario", "cognome":"Marietti" },
+{ "numero":3, "nome":"Anna", "cognome":"Panna" },
+{ "numero":4, "nome":"Marina", "cognome":"Marini" },
+{ "numero":5, "nome":"Giorgio", "cognome":"DiGiorgio" },
+{ "numero":6, "nome":"Benedetta", "cognome":"Santa" },
+{ "numero":7, "nome":"Beatrice", "cognome":"Beatrici" },
+{ "numero":8, "nome":"Giovanni", "cognome":"Giovani" }]
+</p>
+<p id="myP3" style="display:none">
+[{ "numero":1, "nome":"Luca", "cognome":"Siena" },
+{ "numero":2, "nome":"Francesco", "cognome":"Modena" },
+{ "numero":3, "nome":"Anna", "cognome":"Casella" },
+{ "numero":4, "nome":"Pietro", "cognome":"Verona" },
+{ "numero":5, "nome":"Mario", "cognome":"Rossi" },
+{ "numero":6, "nome":"Dora", "cognome":"Vinci" },
+{ "numero":7, "nome":"Lea", "cognome":"Bianchi" }]
+</p>
+
+<script>
+
+
+function myFunction() {
+
+var selection = document.getElementById("mySel").value;
+var table = document.getElementById("myTable");
+var rowCount = table.rows.length;
+
+function renderHTML(data) {
+	
+    for (var t = rowCount - 1; t > 0; t--) {
+         table.deleteRow(t);
+    }
+     
+     for (i = 0 ; i < data.length ; i++) {
+           
+     var rowIns = table.insertRow(i+1);
+     var cell0 = rowIns.insertCell(0);
+     var cell1 = rowIns.insertCell(1);
+     var cell2 = rowIns.insertCell(2);
+     var cell3 = rowIns.insertCell(3);
+     cell0.innerHTML = data[i].numero;
+     cell1.innerHTML = data[i].nome;
+     cell2.innerHTML = data[i].cognome;
+     cell3.style.textAlign= "center";
+     var objInputCheckBox = document.createElement("input");
+     objInputCheckBox.type = "checkbox";
+     cell3.appendChild(objInputCheckBox);
+ };
+};
+
+if (selection == "--") {
+    for (var t = rowCount - 1; t > 0; t--) {
+        table.deleteRow(t);
+	document.getElementById("4head").innerHTML = "";
+    };
+} else {
+
+if (selection == "4SC") {
+var txt1 = document.getElementById("myP1").innerHTML;
+var obj1 = JSON.parse(txt1);
+renderHTML(obj1);
+document.getElementById("4head").innerHTML = "";
+
+ } else {
+
+if (selection == "AM") {
+var txt2 = document.getElementById("myP2").innerHTML;
+var obj2 = JSON.parse(txt2);
+renderHTML(obj2);
+document.getElementById("4head").innerHTML = "";
+
+ } else {
+
+if (selection == "Uni") {
+var txt3 = document.getElementById("myP3").innerHTML;
+var obj3 = JSON.parse(txt3);
+renderHTML(obj3);
+document.getElementById("4head").innerHTML = "";
+
+ };
+};
+};
+};
+};
+
+function myFunctionInt() {
+ 
+ var table = document.getElementById("myTable");
+ var rowCount = table.rows.length;
+ var x = [Math.floor(Math.random()*(table.rows.length - 1) +1)];
+ document.getElementById("4head").innerHTML = table.rows[x].cells[0].innerHTML + " | " + table.rows[x].cells[1].innerHTML + " " + table.rows[x].cells[2].innerHTML;
+
+};
+
+function removeSampleRow() {
+ var objTable = document.getElementById("myTable");
+ var iRow = objTable.rows.length;
+ var counter = 0;
+ if (objTable.rows.length > 1) {
+	for (var i = 0; i < objTable.rows.length; i++) {
+	 var chk = objTable.rows[i].cells[3].childNodes[0];
+	 if (chk.checked) {
+	  objTable.deleteRow(i);
+	  iRow--;
+	  i--;
+	  counter = counter + 1;
+	 };
+	};
+		if (counter == 0) {
+		alert("Nessuno studente selezionato");
+		};
+	 };
+	};
+
+</script>
+
+</body>
+</html>
